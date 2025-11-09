@@ -1,20 +1,15 @@
 import { NavLink } from '@/components/NavLink';
 import { BarChart3, Layout, TrendingUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";  // ✅ Read login state from Firebase
 import { useNavigate } from "react-router-dom";
 
 export const Navigation = () => {
+  const { user, logout } = useAuth(); // ✅ Firebase auth user
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const status = localStorage.getItem("loggedIn");
-    setLoggedIn(status === "true");
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("loggedIn");
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
@@ -24,13 +19,14 @@ export const Navigation = () => {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate("/")}>
             <TrendingUp className="w-8 h-8 text-primary" />
             <span className="text-xl font-semibold">iPhone Analytics Studio</span>
           </div>
 
           {/* Links */}
           <div className="flex items-center space-x-1">
+            
             <NavLink
               to="/"
               className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50"
@@ -58,8 +54,8 @@ export const Navigation = () => {
               <span className="font-medium">Compare Models</span>
             </NavLink>
 
-            {/* ✅ Login / Logout Button */}
-            {!loggedIn ? (
+            {/* ✅ Login / Logout Buttons */}
+            {!user ? (
               <Button
                 onClick={() => navigate("/login")}
                 variant="outline"
