@@ -1,78 +1,58 @@
-import { financialData } from '@/data/iphoneData';
+// src/utils/predictions.ts
 
-// Simple linear regression for revenue prediction
-export function predictRevenue(year: number, type: 'global' | 'india'): number {
-  const data = financialData.map(d => ({
-    x: d.fiscalYear,
-    y: type === 'global' ? d.globalRevenue : d.indiaRevenue
-  }));
+// Predict Revenue using Backend ML Model
+export async function predictRevenue(year: number, region: "global" | "india") {
 
-  // Calculate linear regression coefficients
-  const n = data.length;
-  const sumX = data.reduce((sum, point) => sum + point.x, 0);
-  const sumY = data.reduce((sum, point) => sum + point.y, 0);
-  const sumXY = data.reduce((sum, point) => sum + point.x * point.y, 0);
-  const sumX2 = data.reduce((sum, point) => sum + point.x * point.x, 0);
+  // Set different R&D values for global vs India
+  const rnd = region === "global" ? 200000 : 1200;
 
-  const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-  const intercept = (sumY - slope * sumX) / n;
+  const res = await fetch("http://127.0.0.1:5000/predict-revenue", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ year, rnd })
+  });
 
-  // Add some growth acceleration factor based on R&D
-  const avgRnDGrowth = 1.08; // 8% year-over-year growth
-  const yearDiff = year - 2024;
-  const growthFactor = Math.pow(avgRnDGrowth, yearDiff / 2);
-
-  return Math.round((slope * year + intercept) * growthFactor);
+  const data = await res.json();
+  return data.predictedRevenue;
 }
 
-// Predict iPhone prices based on historical trends and inflation
-export function predictPrice(year: number, variant: 'Base' | 'Pro' | 'Pro Max'): number {
-  const basePrices = {
-    'Base': 79900,
-    'Pro': 119900,
-    'Pro Max': 144900
-  };
+// Predict Price using Backend ML Model
+export async function predictPrice(year: number, variant: "Base" | "Pro" | "Pro Max") {
+  const res = await fetch("http://127.0.0.1:5000/predict-price", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ year, variant })
+  });
 
-  const baseYear = 2024;
-  const yearDiff = year - baseYear;
-  
-  // Annual price increase rate (considering inflation + premium positioning)
-  const priceGrowthRate = 1.035; // 3.5% year-over-year
-  
-  const predictedPrice = basePrices[variant] * Math.pow(priceGrowthRate, yearDiff);
-  
-  return Math.round(predictedPrice / 100) * 100; // Round to nearest 100
+  const data = await res.json();
+  return data.predictedPrice;
 }
 
-// Generate historical trend data for charts
-export function getHistoricalTrend(type: 'revenue' | 'rnd'): Array<{ year: number; value: number }> {
-  return financialData.map(d => ({
-    year: d.fiscalYear,
-    value: type === 'revenue' ? d.globalRevenue : d.globalRnD
-  }));
-}
 
-// Generate prediction trend including historical + future
-export function getPredictionTrend(
-  targetYear: number,
-  type: 'global' | 'india'
-): Array<{ year: number; value: number; isPrediction: boolean }> {
-  const historical = financialData.map(d => ({
-    year: d.fiscalYear,
-    value: type === 'global' ? d.globalRevenue : d.indiaRevenue,
-    isPrediction: false
-  }));
+// Generate prediction trend for charts (no historical data here)
+// Because your UI already shows historical data separately
+export async function getPredictionTrend(targetYear: number, region: "global" | "india") {
+  const currentYear = 2024;
+  const years = Array.from({ length: targetYear - currentYear + 1 }, (_, i) => currentYear + i);
 
-  const futureYears = Array.from(
-    { length: targetYear - 2024 + 1 },
-    (_, i) => 2025 + i
+  const rnd = region === "global" ? 200000 : 1200;
+
+  const values = await Promise.all(
+    years.map(async (year) => {
+      const res = await fetch("http://127.0.0.1:5000/predict-revenue", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ year, rnd })
+      });
+      const data = await res.json();
+      return {
+        year,
+        value: data.predictedRevenue,
+        isPrediction: true
+      };
+    })
   );
 
-  const predictions = futureYears.map(year => ({
-    year,
-    value: predictRevenue(year, type),
-    isPrediction: true
-  }));
-
-  return [...historical, ...predictions];
+  return values;
 }
+

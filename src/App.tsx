@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import Predictions from "./pages/Predictions";
 import Compare from "./pages/Compare";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +22,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/predictions" element={<Predictions />} />
           <Route path="/compare" element={<Compare />} />
+          <Route path="/login" element={<Login />} />
+<Route path="/signup" element={<Signup />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
