@@ -71,6 +71,7 @@ Revenue Prediction	Forecasts global & India revenue	Linear Regression	~0.54
 Models were trained and exported using Joblib for seamless backend integration.
 
 🔒 Authentication Flow
+![flow](https://github.com/Raksham30/ADS-Project-/blob/267865e57255e7706e99438a316507a78f0c8064/Screenshot%202025-11-11%20150451.png)
 
 Users sign in through Continue with Google (Firebase Auth)
 
