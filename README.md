@@ -1,6 +1,12 @@
+Power Bi Dashboard 
+![dashboard](https://github.com/Raksham30/ADS-Project-/blob/843487df179d694f5ae4ef6258316e4cafd1b311/Screenshot%202025-11-04%20142252.png)
+
 📊 iPhone Sales Analytics & Prediction System
 
 The iPhone Sales Analytics and Prediction System is a web-based platform designed to analyze historical iPhone sales data and forecast future pricing and revenue trends. This application integrates Machine Learning, Flask Backend, React Frontend, and Firebase Authentication to deliver real-time insights through predictive modeling and interactive dashboards.
+
+Home Page
+![HomePage](https://github.com/Raksham30/ADS-Project-/blob/843487df179d694f5ae4ef6258316e4cafd1b311/Screenshot%202025-11-11%20145725.png)
 
 🚀 Features
 
@@ -73,6 +79,9 @@ Flask maintains session handling to protect private pages (Dashboard & Predictio
 Logout clears the session securely
 
 🌱 Future Enhancements
+
+Predictions
+![Predictions](https://github.com/Raksham30/ADS-Project-/blob/843487df179d694f5ae4ef6258316e4cafd1b311/Screenshot%202025-11-11%20145822.png)
 
 Real-time sales data integration via APIs
 
