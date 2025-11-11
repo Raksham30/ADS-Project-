@@ -1,73 +1,88 @@
-# Welcome to your Lovable project
+📊 iPhone Sales Analytics & Prediction System
 
-## Project info
+The iPhone Sales Analytics and Prediction System is a web-based platform designed to analyze historical iPhone sales data and forecast future pricing and revenue trends. This application integrates Machine Learning, Flask Backend, React Frontend, and Firebase Authentication to deliver real-time insights through predictive modeling and interactive dashboards.
 
-**URL**: https://lovable.dev/projects/4716117e-6baa-4cd7-8564-585161fd772a
+🚀 Features
 
-## How can I edit this code?
+Google Authentication for secure login
 
-There are several ways of editing your application.
+Price Prediction based on year and iPhone variant
 
-**Use Lovable**
+Global & India Revenue Forecasting using trained ML models
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4716117e-6baa-4cd7-8564-585161fd772a) and start prompting.
+Interactive Dashboard for visual insights and KPI metrics
 
-Changes made via Lovable will be committed automatically to this repo.
+Comparison Module to compare different iPhone models by price trends
 
-**Use your preferred IDE**
+Responsive UI optimized for both desktop and mobile
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+🛠️ Tech Stack
+Layer	Technologies Used
+Frontend	React, TypeScript, Tailwind CSS, shadcn-ui, Vite
+Backend	Flask (Python), REST API
+Machine Learning	Scikit-learn, Pandas, NumPy, Joblib
+Authentication	Firebase Authentication (Google Login)
+Visualization	Plotly, Charts.js (if applicable)
+📂 Project Structure
+root/
+ ├── frontend/            # React UI
+ │   ├── src/components   # UI Components
+ │   ├── src/pages        # Page Views (Home, Dashboard, Prediction)
+ │   └── ...
+ ├── backend/             # Flask Backend
+ │   ├── app.py           # API Endpoints
+ │   ├── price_model.pkl  # Trained Price Model
+ │   ├── revenue_model.pkl# Trained Revenue Model
+ │   └── ...
+ └── README.md
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+⚙️ Installation & Setup (Local Development)
+1️⃣ Clone the Repository
+git clone <YOUR_GIT_REPO_URL>
+cd <PROJECT_FOLDER_NAME>
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+2️⃣ Install Dependencies (Frontend)
+cd frontend
+npm install
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+3️⃣ Run Backend
+cd backend
+pip install -r requirements.txt
+python app.py
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
+The application will now be available at:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Frontend: http://localhost:5173
+Backend API: http://localhost:5000
 
-## What technologies are used for this project?
+📈 Machine Learning Models Used
+Model	Purpose	Algorithm	Accuracy (R²)
+Price Prediction	Predicts price based on year & variant	Linear Regression	~0.54
+Revenue Prediction	Forecasts global & India revenue	Linear Regression	~0.54
 
-This project is built with:
+Models were trained and exported using Joblib for seamless backend integration.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+🔒 Authentication Flow
 
-## How can I deploy this project?
+Users sign in through Continue with Google (Firebase Auth)
 
-Simply open [Lovable](https://lovable.dev/projects/4716117e-6baa-4cd7-8564-585161fd772a) and click on Share -> Publish.
+Flask maintains session handling to protect private pages (Dashboard & Prediction)
 
-## Can I connect a custom domain to my Lovable project?
+Logout clears the session securely
 
-Yes, you can!
+🌱 Future Enhancements
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Real-time sales data integration via APIs
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Competitor comparison (Samsung, OnePlus, Google Pixel)
+
+Sentiment Analysis from X/Twitter & Reddit
+
+AI-driven model recommendation system
+
+✅ Conclusion
+
+This system provides a practical and intuitive platform for analyzing and forecasting iPhone sales performance.
+Its integration of machine learning, interactive analytics, and secure user access makes it valuable for market researchers, students, and business analysts alike.
